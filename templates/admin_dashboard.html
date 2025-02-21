@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    {%extends 'base.html'%}
+    {%block content%}
+    <h2>Admin Dashboard</h2>
+    <p>Welcome, {{ username }}!</p>
+    
+    <h3>Products:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.price }}</td>
+                    <td><a href="{{ url_for('delete_product', product_id=product.id) }}">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('add_product') }}">Add New Product</a>
+    {%endblock%}
+</body>
+</html>
