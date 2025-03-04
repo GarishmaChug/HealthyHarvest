@@ -129,7 +129,7 @@ def checkout_page():
 # @app.route('/beauty-products')
 def add_beauty_products():
     beauty_products = [
-        {'name': 'Sol de Janeiro Beija Flor Jet Set', 'price': '$32', 'image': 'static/images/product1.webp',},
+        {'name': 'Sol de Janeiro Beija Flor Jet Set', 'price': '$32', 'image': 'static/images/product1.webp'},
         {'name': 'Charlotte Tilbury Beauty Pillow Talk Mini Pillow Talk lipstick and more', 'price': '$25', 'image': 'static/images/product2.webp'},
         {'name': 'Sol de Janeiro Bom Dia Bright Jet set', 'price': '$33', 'image': 'static/images/product3.jpg'},
         {'name': 'Glow Recipe Fruit Babies Bestsellers Kit', 'price': '$250', 'image': 'static/images/product4.jpeg'},
@@ -162,7 +162,7 @@ def add_beauty_products():
 
 
 with app.app_context():
-    db.drop_all()  # Drop all tables (use with caution)
+    # db.drop_all()  # Drop all tables (use with caution)
     db.create_all()  # Create tables again
     add_beauty_products()  # Add beauty products after recreating the tables
 @app.route("/beauty")
@@ -267,6 +267,57 @@ def snacks():
         {'name': "Makhana", 'image': 'makhana.png', 'price': '₹160 (100g)'},
     ]
     return render_template('snacks.html', products=products_list)
+
+
+@app.route('/all')
+def all():
+    product2=[
+
+    {'name': "Amul Moti Milk", 'image': 'milk.png', 'price': '$0.40 (450ml)'},
+    {'name': "Whole Wheat Bread", 'image': 'wheatBread.png', 'price': '$0.72 (400g)'},
+    {'name': "Brown Bread", 'image': 'Brown.png', 'price': '$0.66 (400g)'},
+    {'name': "Bonn Pav Bread", 'image': 'pav.png', 'price': '$0.54 (250g)'},
+    {'name': "Eggs", 'image': 'eggs.png', 'price': '$0.86 (6 pieces)'},
+    {'name': "Kellogg's Corn Flakes", 'image': 'flakes.png', 'price': '$1.44 (250g)'},
+    {'name': "Kellogg's Muesli Nuts Delight", 'image': 'muesli.png', 'price': '$6.53 (1 kg)'},
+    {'name': "Saffola Masala Veggie Twist Oats", 'image': 'oats.png', 'price': '$0.82 (pack of 4)'},
+    {'name': "Mother Dairy Classic Curd", 'image': 'curd.png', 'price': '$0.30 (200g)'},
+    {'name': "Amul Salted Butter", 'image': 'butter.png', 'price': '$0.72 (100g)'},
+    {'name': "Amul Cheese Slices", 'image': 'cheeseSlices.png', 'price': '$1.02 (100g)'},
+    {'name': "Amul Fresh Cream", 'image': 'cream.png', 'price': '$0.82 (250ml)'},
+    {'name': "Nestle Milkmaid Sweetened Condensed Milk", 'image': 'condensedMilk.png', 'price': '$1.68 (380g)'},
+    {'name': "MyFitness Chocolate Crunchy Peanut Butter (227 g)", 'image': 'peanutButter.png', 'price': '$1.75 (227g)'},
+    {'name': "Dabur Honey", 'image': 'honey.png', 'price': '$1.38 (250g)'},
+    {'name': "Kissan Fresh Tomato Ketchup", 'image': 'ketchup.png', 'price': '$1.20 (850g)'},
+    {'name': "Veg Mayonnaise", 'image': 'mayo.png', 'price': '$0.59 (100g)'},
+    {'name': "Ching's Secret Schezwan Chutney", 'image': 'chutney.png', 'price': '$1.01 (250g)'},
+    {'name': "Hershey's Chocolate Syrup", 'image': 'chocoSyrup.png', 'price': '$1.26 (200g)'},
+    {'name': "Smith & Jones Ginger Garlic Paste", 'image': 'garlicpaste.png', 'price': '$0.55 (200g)'},
+    {'name': "Vinegar", 'image': 'vinegar.png', 'price': '$0.80 (610ml)'},
+    {'name': "Tata Tea Premium Tea", 'image': 'tata.png', 'price': '$1.68 (250g)'},
+    {'name': "Brooke Bond Taj Mahal Tea", 'image': 'taj.png', 'price': '$0.78 (100g)'},
+    {'name': "Nescafe Classic - Instant Coffee Powder", 'image': 'coffee.png', 'price': '$2.76 (45g)'},
+    {'name': "Aashirvaad Shudh Chakki Atta", 'image': 'ashirvad.png', 'price': '$2.86 (5kg)'},
+    {'name': "Fortune Chakki Fresh", 'image': 'fortune.png', 'price': '$2.72 (5kg)'},
+    {'name': "Daawat Rozana Gold Basmati Rice", 'image': 'rice.png', 'price': '$4.98 (5kg)'},
+    {'name': "Whole Farm Grocery Kabuli Chana", 'image': 'chana.png', 'price': '$1.87 (1kg)'},
+    {'name': "Whole Farm Premium Kashmiri Red Rajma", 'image': 'rajma.png', 'price': '$1.44 (500g)'},
+    {'name': "Toor Dal", 'image': 'toor.png', 'price': '$2.38 (1kg)'},
+    {'name': "Urad Dal (Chilka)", 'image': 'urad.png', 'price': '$0.92 (500g)'},
+    {'name': "Brown Chana", 'image': 'brownchana.png', 'price': '$0.79 (500g)'},
+    {'name': "Happydent White Spearmint Sugar Free Chewing Gum", 'image': 'happydent.png', 'price': '$0.59'},
+    {'name': "Parle Melody Chocolaty Candy", 'image': 'melody.png', 'price': '$1.20'},
+    {'name': "Lotte Choco Pie", 'image': 'pie.png', 'price': '$0.96'}
+]
+
+ 
+ 
+    return render_template("all.html",products=product2)
+
+
+
+
+
 
 @app.route('/add_to_cart/<int:product_id>', methods=['POST'])
 def add_to_cart(product_id):

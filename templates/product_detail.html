@@ -44,7 +44,13 @@
     {% extends 'base.html' %}
     {% block content %}
     <div class="product-detail">
-        <img src="{{ product.image }}" alt="{{ product.name }}">
+        <!-- <img src="{{ product.image }}" alt="{{ product.name }}"> -->
+ 
+      <!-- <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">   -->
+
+      <img src="{{ url_for('static', filename=product.image.replace('static/', '')) }}" 
+      alt="{{ product.name }}">
+
         <div class="product-info">
             <h1>{{ product.name }}</h1>
             <p><strong>Price:</strong> {{ product.price }}</p>

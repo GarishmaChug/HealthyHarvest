@@ -54,12 +54,13 @@
     text-align: center;
     border-radius: 30px;
     width: 120px;
-    height: 30px;
+    height: 40px;
     padding-top: 7px;
     text-decoration: none;
     background-color: rgb(205, 202, 202);
     color: black;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    font-size: 20px;
    
 }
 
@@ -218,3 +219,7 @@ h1{
    font-size: 30px;
    margin-top: 70px;
 }
+#new{
+    background-color: rgb(235, 240, 235);
+    padding-top: 70px;
+    }
