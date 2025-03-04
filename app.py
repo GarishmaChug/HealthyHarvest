@@ -33,6 +33,11 @@ class Product(db.Model):
     name = db.Column(db.String(150), nullable=False)
     price = db.Column(db.String(50), nullable=False)
     image = db.Column(db.String(150), nullable=True)
+    description = db.Column(db.Text, nullable=True)
+    # description = db.Column(db.Text,nullable=True)
+    
+
+
 
     def __repr__(self):
         return f"Product('{self.name}', '{self.price}')"
@@ -51,7 +56,7 @@ def add_admin_user():
         print("Admin user added to the database.")
 
 with app.app_context():
-   
+    db.drop_all()
     db.create_all()  # Create tables again
     add_admin_user()  # Add admin user
    
@@ -119,9 +124,12 @@ def checkout_page():
 
     return render_template('checkout.html')  
 
+
+
+# @app.route('/beauty-products')
 def add_beauty_products():
     beauty_products = [
-        {'name': 'Sol de Janeiro Beija Flor Jet Set', 'price': '$32', 'image': 'static/images/product1.webp'},
+        {'name': 'Sol de Janeiro Beija Flor Jet Set', 'price': '$32', 'image': 'static/images/product1.webp',},
         {'name': 'Charlotte Tilbury Beauty Pillow Talk Mini Pillow Talk lipstick and more', 'price': '$25', 'image': 'static/images/product2.webp'},
         {'name': 'Sol de Janeiro Bom Dia Bright Jet set', 'price': '$33', 'image': 'static/images/product3.jpg'},
         {'name': 'Glow Recipe Fruit Babies Bestsellers Kit', 'price': '$250', 'image': 'static/images/product4.jpeg'},
@@ -142,9 +150,11 @@ def add_beauty_products():
         {'name': 'IT Cosmetics Your Skin But Better CC+ Cream', 'price': '$39', 'image': 'static/images/product19.jpeg'},
         {'name': 'Tatcha The Dewy Skin Cream', 'price': '$68', 'image': 'static/images/product20.jpeg'},
     ]
+    
 
     for product in beauty_products:
-        new_product = Product(name=product['name'], price=product['price'], image=product['image'])
+        new_product = Product(name=product['name'], price=product['price'], image=product['image']
+        ,description=product.get('description',''))
         db.session.add(new_product)
 
         db.session.commit()
@@ -152,7 +162,7 @@ def add_beauty_products():
 
 
 with app.app_context():
-    # db.drop_all()  # Drop all tables (use with caution)
+    db.drop_all()  # Drop all tables (use with caution)
     db.create_all()  # Create tables again
     add_beauty_products()  # Add beauty products after recreating the tables
 @app.route("/beauty")
@@ -458,6 +468,16 @@ def search():
         results = fruits_vegetables_dict
     
     return render_template('search_results.html', query=query, results=results)
+
+
+
+@app.route("/product/<int:product_id>")
+def product_detail(product_id):
+    # New route to show individual product details
+    product = Product.query.get_or_404(product_id)
+    return render_template('product_detail.html', product=product)
+
+
 
 
 

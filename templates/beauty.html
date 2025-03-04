@@ -16,8 +16,27 @@
             <div class="product">
                 <img src="{{ product.image }}" alt="{{ product.name }}" style="width: 200px; height: 200px;">
                 <p>{{ product.price }}</p>
-                <p id="new">{{ product.name }}</p>
-                <p id="review">{{ product.description }}</p>
+                <!-- <p id="new">{{ product.name }}</p> -->
+
+                <!-- <p id="new">
+                    <a href="#" style="text-decoration: none; color: inherit;">{{ product.name }}</a>
+                </p> -->
+
+                <p id="new">
+                    <a href="{{ url_for('product_detail', product_id=product.id) }}" style="text-decoration: none; color: inherit;">
+                        {{ product.name }}
+                    </a>
+                </p>
+
+
+                <!-- <p id="review">{{ product.description }}</p> -->
+
+
+                <p id="description">{{ product.description }}</p>
+
+
+
+
 
         <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
             <button type="submit" id="but" >Add to Cart</button>
