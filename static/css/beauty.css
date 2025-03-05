@@ -66,5 +66,10 @@ p{
 }
 
 #but{
-    margin-left: 10px;
+    margin-left: 14px;
+    width: 100px;
+}
+
+#abcd{
+    display: flex;
 }

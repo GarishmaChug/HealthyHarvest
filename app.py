@@ -337,6 +337,51 @@ def add_to_cart(product_id):
     flash('Item added to cart!', 'success')
     return redirect(request.referrer)
 
+
+
+@app.route('/buy_now/<int:product_id>', methods=['GET', 'POST'])
+def buy_now(product_id):
+    # Ensure user is logged in
+    if 'user_id' not in session:
+        flash('Please log in to proceed to checkout.', 'warning')
+        return redirect(url_for('login'))
+
+    # Check if the item is already in the cart
+    existing_cart_item = Cart.query.filter_by(user_id=session['user_id'], product_id=product_id).first()
+
+    # If the item is not in the cart, add it
+    if existing_cart_item:
+        existing_cart_item.quantity += 1  # Increase the quantity if it's already in the cart
+    else:
+        new_cart_item = Cart(user_id=session['user_id'], product_id=product_id)
+        db.session.add(new_cart_item)
+
+    db.session.commit()
+    flash('Item added to cart! Redirecting to checkout...', 'success')
+
+    # Redirect to the checkout page after adding to cart
+    return redirect(url_for('checkout_summary'))
+
+
+@app.route('/checkout/summary')
+def checkout_summary():
+    if 'user_id' not in session:
+        flash('Please log in to proceed to checkout.', 'warning')
+        return redirect(url_for('login'))
+
+    # Retrieve the user's cart items within the request context
+    cart_items = Cart.query.filter_by(user_id=session['user_id']).all()  # Get all items for the user
+
+    # Calculate the total price
+    total_price = sum(
+        float(item.product.price.replace('$', '').replace(',', '')) * int(item.quantity) 
+        for item in cart_items
+    )
+
+    return render_template('checkout.html', cart_items=cart_items, total_price=total_price)
+
+
+
 @app.route('/cart')
 def cart():
     if 'user_id' not in session:
